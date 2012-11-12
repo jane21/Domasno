@@ -1,0 +1,24 @@
+#include <iostream>
+#include <cstring>
+#include <stdlib.h> //za clrscr funkcijata koja ke go brise ekranot
+#define NUMCLIPS 15 //maximalniot broj na clipovi kako sto e navedeno vo zadacata
+using namespace std;
+string Zanr[6]={"Privaten Klip","Muzika","Dokumentarec","Film","Edukativen","Zabava"};
+class CLIP
+{
+  string postavuvacClip; 
+  int  numViews;
+  int  ocenka; //pomegu eden i pet    
+   
+  public:
+   string izveduvacClip; // public e bidejki ni treba vo funkcija nadvor od klasa
+   string Zanrr;        //isto i ovie
+   string imeClip;     
+   int  godIzdavanje;    
+  void vnesiKlip()
+  {
+   // posle sekoe vnesuvanje koristime fflush(stdin) za da se iscisti \n (ENTER) od keyboard bufferot
+   // za da ne se sozdadat problemi pri vnes na promenlivi 
+   bool neOK=true;
+   int kontrolaVlez=0;
+   cout<<"Vnesete ime na klip: ";
