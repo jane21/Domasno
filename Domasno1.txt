@@ -275,4 +275,98 @@ class ListaOdKlipovi //ovde ke gi cuvame 15-te klipa
            }
           }
     };
+int main()
+{
+    string c;
+    bool neOK=true;
+    ListaOdKlipovi nekojaLista;
+   while(true)
+   { 
+    cout<<"Dali ke vnesete element vo listata na klipovi? D/N \n";
+    cin>>c;
+    fflush(stdin);
+    if(c[0]=='n' || c[0]=='N' || c[0]=='d' || c[0]=='D')
+     neOK=false;
+    while(neOK)
+    {
+     cout<<"Vnesete D za Da , N za Ne...\n";
+     cin>>c;
+     fflush(stdin);
+     if(c[0]=='n' || c[0]=='N' || c[0]=='d' || c[0]=='D')
+      neOK=false;
+    }
+    if(c[0]=='N' || c[0]=='n')
+    {
+     system("CLS"); //brisenje na ekranot vo konzolata
+     cout<<"Gi pecatam site KLIPOVI sortirani po AZBUCEN REDOSLED: \n\n";
+     nekojaLista.pecatiListaOdClipovi();
+     break;
+    }
+    else
+     if(c[0]=='D' || c[0]=='d')
+      nekojaLista.dodadiClip();   
+  }
+  
+  neOK=true;
+  while(true)
+  {
+   cout<<"\nDali ke prebaruvate? D/N \n";
+   cin>>c; 
+   fflush(stdin);
+   if(c[0]=='n' || c[0]=='N' || c[0]=='d' || c[0]=='D')
+     neOK=false;
+    while(neOK)
+    {
+     cout<<"Vnesete D za Da , N za Ne...\n";
+     cin>>c;
+     fflush(stdin);
+     if(c[0]=='n' || c[0]=='N' || c[0]=='d' || c[0]=='D')
+      neOK=false;
+    }          
+    if(c[0]=='D' || c[0]=='d')
+      nekojaLista.search();
+    else
+     if(c[0]=='N' || c[0]=='n')
+     {
+      cout<<"\nPrebaruvanjeto zavrsi\n\n";
+      system("CLS"); //brisenje na ekranot vo konzolata
+      break;
+     }
+  }
+  
+  neOK=true;
+  while(true)
+  {
+   cout<<"\nDali bi sakale da se sortira nizava po godina na izdavanje? D/N \n";
+   cin>>c; 
+   fflush(stdin);
+   if(c[0]=='n' || c[0]=='N' || c[0]=='d' || c[0]=='D')
+     neOK=false;
+    while(neOK)
+    {
+     cout<<"Vnesete D za Da , N za Ne...\n";
+     cin>>c;
+     fflush(stdin);
+     if(c[0]=='n' || c[0]=='N' || c[0]=='d' || c[0]=='D')
+      neOK=false;
+    }          
+    if(c[0]=='D' || c[0]=='d')
+      {
+       nekojaLista.sortPoGodina();
+       cout<<"Gi pecatam site KLIPOVI sortirani po GODINA NA IZDAVANJE: \n\n";
+       nekojaLista.pecatiListaOdClipovi();
+       break;
+      }
+    else
+     if(c[0]=='N' || c[0]=='n')
+     {
+      cout<<"\n\n\n";
+     break;
+   }
+  }
+  cout<<"Proektot bese izraboten od Jane Angelevski";
+    cin.get(); //za zadrzuvanje na ekranot
+      return 0;
+}
+
 
