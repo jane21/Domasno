@@ -22,3 +22,257 @@ class CLIP
    bool neOK=true;
    int kontrolaVlez=0;
    cout<<"Vnesete ime na klip: ";
+   getline(cin,imeClip);
+   fflush(stdin);
+   cout<<"Vnesete postavuvac na klip: ";
+   getline(cin,postavuvacClip);
+   fflush(stdin);
+   cout<<"Vnesete izveduvac na klip: ";
+   getline(cin,izveduvacClip);
+   fflush(stdin);
+   cout<<"Godina na izdavanje: ";
+   kontrolaVlez=scanf("%d",&godIzdavanje);
+   fflush(stdin);
+   if(godIzdavanje > 2000  && godIzdavanje < 2012 && kontrolaVlez)
+    neOK=false;
+   while(neOK)
+    {
+    cout<<"Pogresno vnesovte vnesete pak:(godinata e pomegu 2001-2011) ";
+     kontrolaVlez=scanf("%d",&godIzdavanje);
+     fflush(stdin);
+      if(godIzdavanje > 2000  && godIzdavanje < 2011 && kontrolaVlez)
+       neOK=false;
+    }
+   
+   neOK=true;
+   cout<<"Vnesete broj na gledanja: ";
+   kontrolaVlez=scanf("%d",&numViews);
+   fflush(stdin);
+    if(numViews>0 && kontrolaVlez)
+     neOK=false;
+   while(neOK)
+    {
+     cout<<"Pogresno vnesovte vnesete pak:(pozitiven broj ve molam) ";
+     kontrolaVlez=scanf("%d",&numViews);
+     fflush(stdin);
+     if(numViews>0 && kontrolaVlez)
+      neOK=false;
+    }
+   
+   neOK=true;
+   cout<<"Vnesete ocenka za clipot: ";
+   kontrolaVlez=scanf("%d",&ocenka);
+   fflush(stdin);
+   if(ocenka > 0 && ocenka < 6 && kontrolaVlez)
+    neOK=false;
+    while(neOK)
+    {
+     cout<<"Pogresno vnesovte vnesete pak:(pomegu 1-5) ";
+     kontrolaVlez=scanf("%d",&ocenka);
+     fflush(stdin);
+         if(ocenka > 0 && ocenka < 6 && kontrolaVlez)
+     neOK=false;
+    }
+
+   neOK=true;
+   int izbor;
+   cout<<"Za Zanr izberete eden od navedenive\n";
+   cout<<"1.Privaten klip\n";
+   cout<<"2.Muzika\n";
+   cout<<"3.Dokumentarec\n";
+   cout<<"4.Film\n";
+   cout<<"5.Edukativen\n";
+   cout<<"6.Zabava\n";
+   kontrolaVlez=scanf("%d",&izbor);
+   fflush(stdin);
+   if(izbor > 0 && izbor < 7 && kontrolaVlez )
+    neOK=false;
+    while(neOK)
+    {
+     cout<<"Pogresno vnesovte vnesete pak:(1-6 ve molam) ";
+     kontrolaVlez=scanf("%d",&izbor);
+     fflush(stdin);
+     if(izbor > 0 && izbor < 7 && kontrolaVlez )
+       neOK=false;
+    }
+    Zanrr=Zanr[izbor-1];
+  }
+  
+  
+  void ispisKlip()
+  {
+   string zaPecatenje;
+   zaPecatenje=("Ime na klip: " + imeClip + "\n" +
+                "Postavuvac klip: " + postavuvacClip + "\n" +
+                "Izveduvac klip: " + izveduvacClip + "\n");
+   cout<<zaPecatenje<< "Godina izdavanje: "<<godIzdavanje<<"\nBroj na gledaci: "<<numViews<<"\nOcenka: "<<ocenka;
+   cout<<"\nZanr na klipot: "<<Zanrr<<"\n\n";
+  }       
+  
+ 
+};
+class ListaOdKlipovi //ovde ke gi cuvame 15-te klipa
+{
+ private:
+ CLIP clipovi[15];
+ int numClipovi; //tekoven broj na clipovi
+ public:
+        ListaOdKlipovi() //konstructor , se povikuva sekogas koga ke deklarirame promenliva od tip 
+        {                 // ListaOdKlipovi
+         numClipovi=0; //listata e prazna
+        }     
+        
+        void sortPoIme() //vazna funkcija sekogas koga ke dodadame clip sortirame po IME
+        {                //sakame po azbucen redosled da e sortirana
+         if(numClipovi > 1)
+         {
+         CLIP temp;
+         for(int i=0;i<numClipovi-1;i++)
+          for(int j=i+1;j<numClipovi;j++)
+          {
+           char *prvString=new char[clipovi[i].imeClip.size()+1]; //prenesuvame string vo char array za da koristime  strcmp funkcija
+           prvString[clipovi[i].imeClip.size()]=0
+           memcpy(prvString,clipovi[i].imeClip.c_str(),clipovi[i].imeClip.size());
+          char *vtorString=new char[clipovi[j].imeClip.size()+1]; //prenesuvame string vo char array za da koristime
+           vtorString[clipovi[j].imeClip.size()]=0;               //strcmp funkcija
+           memcpy(vtorString,clipovi[j].imeClip.c_str(),clipovi[j].imeClip.size());
+           
+           if(strcmp(prvString,vtorString) > 0) // ako vratime pogolemo od 0, "pogolem" e prvoto IME
+           {
+              temp=clipovi[i];
+              clipovi[i]=clipovi[j];
+              clipovi[j]=temp;
+           }
+          }
+         }
+        }
+        void sortPoGodina() //rastecki redosled
+        {
+        if(numClipovi > 1)
+        {
+        CLIP temp;
+         for(int i=0;i<numClipovi-1;i++)
+          for(int j=i+1;j<numClipovi;j++)
+          {
+          if( clipovi[i].godIzdavanje > clipovi[j].godIzdavanje ) //godIzdavanje is public
+           {
+              temp=clipovi[i];
+              clipovi[i]=clipovi[j];
+              clipovi[j]=temp;
+           }
+          }
+         }
+        }
+        void pecatiListaOdClipovi()
+        {
+         if(numClipovi!=0)     
+          for(int i=0;i<numClipovi;i++)
+           clipovi[i].ispisKlip();
+        }
+        
+        void dodadiClip()
+        {
+         if(numClipovi<NUMCLIPS)
+         {
+         CLIP temp; //kreirame pomosen clip
+         temp.vnesiKlip(); //go popolnuvame
+         
+         clipovi[numClipovi]=temp;
+         numClipovi++;
+         sortPoIme();
+         }
+         else
+          cout<<"Max. broj na clipovi e 15....\n";
+        }
+        
+        void searchIme(string kZ)
+        {
+         int brojac=0;
+         for(int i=0;i<numClipovi;i++)
+          if( clipovi[i].imeClip == kZ )
+            {
+              brojac++;
+              clipovi[i].ispisKlip();
+            }
+           if(brojac!=0)
+           cout<<"Bea najdeni vkupno " << brojac << "klipa koi go zadovolija\n uslovot i istite bea ispecateni pogore ";
+           else
+           cout<<"Nemase nieden clip so takvo ime\n";
+         }
+
+         void searchIzveduvac(string kZ)
+         {
+         int brojac=0;
+          for(int i=0;i<numClipovi;i++)
+          if( clipovi[i].izveduvacClip== kZ )
+            {
+              brojac++;
+              clipovi[i].ispisKlip();
+            }
+          if(brojac!=0)
+             cout<<"Bea najdeni vkupno " << brojac << "klipa koi go zadovolija\n uslovot i istite bea ispecateni pogore ";
+          else
+           cout<<"Nemase nieden clip so takov izveduvac\n";    
+          }
+          
+         void searchZanr(string kZ)
+         {
+         int brojac=0; 
+          for(int i=0;i<numClipovi;i++)
+           if( clipovi[i].Zanrr== kZ )
+             {
+              brojac++;
+              clipovi[i].ispisKlip();
+             }
+           if(brojac!=0)
+            cout<<"Bea najdeni vkupno " << brojac << "klipa koi go zadovolija\n uslovot i istite bea ispecateni pogore\n";
+           else
+            cout<<"Nemase nieden clip od takov zanr\n";    
+           }
+           
+           void search() 
+           {
+            int izbor;
+            bool neOK=true;
+            int kontrolaVlez=0;
+            string klucenZbor;
+            cout<<"Dobredojdovte vo prebaruvanjeto: \n";
+            cout<<"Izberete po koja kategorija ke se vrsi prebaruvanje\n";
+            cout<<"1.IME:\n";
+            cout<<"2.IZVEDUVAC:\n";
+            cout<<"3.ZANR:\n";
+            kontrolaVlez=scanf("%d",&izbor);
+            fflush(stdin);
+            if(izbor > 0 && izbor < 4 && kontrolaVlez)
+             neOK=false;
+            
+            while(neOK)
+            {
+             cout<<"Ve molam vnesete go brojot pred kategorijata\n";
+             kontrolaVlez=scanf("%d",&izbor);
+             fflush(stdin);
+             if(izbor > 0 && izbor < 4 && kontrolaVlez)
+              neOK=false;
+            }      
+           cout<<"Vnesete go klucniot zbor:";
+           cin>>klucenZbor;
+
+           fflush(stdin);
+           if(izbor==1)
+           {
+            cout<<"Izbravte prebaruvanje po IME :\nPrebaruvam....\n";
+            searchIme(klucenZbor);
+           }
+           if(izbor==2)
+           {
+            cout<<"Izbravte prebaruvanje po IZVEDUVAC :\nPrebaruvam....\n";
+            searchIzveduvac(klucenZbor);
+           }
+           if(izbor==3)
+           {
+            cout<<"Izbravte prebaruvanje po ZANR :\nPrebaruvam....\n";
+            searchZanr(klucenZbor);
+           }
+          }
+    };
+
